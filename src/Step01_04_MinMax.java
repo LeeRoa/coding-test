@@ -38,6 +38,7 @@ public class Step01_04_MinMax {
 
     /**
      * 제미나이가 직접 짠 시간복잡도 고려한 정렬 코드
+     * 데이터가 많이 들어오는 것을 고려해서 사용할 수 있는 효율적인 코드임.
      */
     private static void sort_answer(int N, int[] numArr, StringTokenizer st) throws Exception {
         int min = 1000001;
