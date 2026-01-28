@@ -39,12 +39,26 @@ public class Step03_01_Card2 {
 
         int N = Integer.parseInt(br.readLine());
         
-        int[] cardArr = new int[N];
+        int[] queue = new int[N * 2];
+        int front = 0;
+        int rear = N;
 
-        int top = 0;
         for (int i = 0; i < N; i++) {
-            cardArr[top]
+            queue[i] = i + 1;
         }
-        
+
+        while (true) {
+            // 첫번째 큐 빼기
+            front++;
+            
+            // 두번째 큐 맨뒤에 넣기
+            int value2 = queue[front++];
+            queue[rear++] = value2;
+            
+            if (rear - front == 1) {
+                System.out.println(queue[front]);
+                break;
+            }
+        }
     }
 }
