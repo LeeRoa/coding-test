@@ -3,6 +3,8 @@ package step03;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -40,12 +42,26 @@ public class Quiz_Queue {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        // 1. N 입력 받기
         int N = Integer.parseInt(br.readLine());
-        Queue<Integer> queue = new LinkedList<>();
-        // TODO: 큐를 생성하고 로직을 구현하세요.
+        Queue<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < N; i++) {
+            queue.offer(i + 1);
+        }
 
+        System.out.println(Arrays.toString(queue.toArray()));
 
-        // TODO: 남은 카드 한 장을 출력하세요.
+        int i = 0;
+        while (queue.size() != 1) {
+            int value = queue.poll();
+
+            if (i % 2 == 1) {
+                queue.offer(value);
+            }
+            System.out.println(Arrays.toString(queue.toArray()));
+
+            i++;
+        }
+
+        System.out.println(queue.peek());
     }
 }
