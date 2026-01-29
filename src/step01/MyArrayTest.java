@@ -1,3 +1,5 @@
+package step01;
+
 public class MyArrayTest {
 
     /** 최적화 방식: 오른쪽에서 왼쪽으로 밀기 (임시 배열 없음, O(1) 추가 공간) */
