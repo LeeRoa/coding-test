@@ -3,7 +3,8 @@ package step02;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /*
  스택 활용: 제로 (백준 10773번)
@@ -44,7 +45,7 @@ public class Quiz1_Stack {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int K = Integer.parseInt(br.readLine());
-        Stack<Integer> stack = new Stack<>();
+        Deque<Integer> stack = new ArrayDeque<>();
 
         for (int i = 0; i < K; i++) {
             int num = Integer.parseInt(br.readLine());
@@ -56,7 +57,7 @@ public class Quiz1_Stack {
             }
         }
 
-        int total = 0;
+        long total = 0;
 
         for (Integer num : stack) {
             total += num;
