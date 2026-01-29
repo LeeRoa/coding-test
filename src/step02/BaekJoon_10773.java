@@ -40,7 +40,7 @@ import java.util.Deque;
  [예제 출력]
  7
  */
-public class Quiz1_Stack {
+public class BaekJoon_10773 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
