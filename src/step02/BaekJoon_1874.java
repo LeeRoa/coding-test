@@ -3,11 +3,7 @@ package step02;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
-
-import static javax.swing.text.html.HTML.Attribute.N;
 
 public class BaekJoon_1874 {
     /*
@@ -63,34 +59,51 @@ public class BaekJoon_1874 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         // 오름차순으로 있 수열 {1, 2, 3, 4, 5, 6, 7, 8}
+        Deque<Integer> numDeque = new ArrayDeque<>();
         // 만들어야할 목표 수열 {4, 3, 6, 8, 7, 5, 2, 1}
         Deque<Integer> stack = new ArrayDeque<>();
 
         int n = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
+
+        for (int i = n; i > 0; i--) {
+            numDeque.push(i);
+        }
+
+        boolean ok = true;
         // n번 순회
         for (int i = 0; i < n; i++) {
             int target = Integer.parseInt(br.readLine());
 
             // n까지의 숫자가 나올 것이니까
-            for (int j = 1; j <= n; j++) {
+            for (int j = 1; j <= n + 1; j++) {
                 if (stack.size() > 0 && stack.peek() == target) {
                     stack.pop();
-                    sb.append("-");
+                    sb.append("-\n");
                     break;
                 }
 
                 // 스택에 타겟 넘버와 같을때까지 값을 push
-                if (target >= j) {
-                    stack.push(j);
-                    System.out.println(stack);
-                    sb.append("+");
+                if (numDeque.size() > 0 && numDeque.peek() <= target) {
+                    stack.push(numDeque.pop());
+                    sb.append("+\n");
+                }
+
+                if (stack.size() > 0 && stack.peek() > target) {
+                    ok = false;
+                    break;
                 }
             }
 
+            if (!ok) {
+                break;
+            }
+        }
 
-            System.out.println(stack);
+        if (ok) {
             System.out.println(sb);
+        } else {
+            System.out.println("NO");
         }
     }
 }
