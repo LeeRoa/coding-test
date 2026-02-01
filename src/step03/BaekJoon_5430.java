@@ -15,12 +15,13 @@ public class BaekJoon_5430 {
             int n = Integer.parseInt(br.readLine());
             // 수행할 배열
             byte[] nums = new byte[n];
-
-
-
             // 출력할 스트링 빌더
             StringBuilder sb = new StringBuilder();
 
+            // 함수 개수 만큼 실행
+            for (int i = 0; i < p.length(); i++) {
+
+            }
         }
     }
 }
