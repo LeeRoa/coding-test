@@ -17,10 +17,17 @@ public class BaekJoon_2493 {
         // 탑의 정렬 [6, 9, 5, 7, 4]
         Deque<Integer> stack = new ArrayDeque<>();
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
+
+        int high = 0;
         for (int i = 0; i < N; i++) {
-            stack.push(Integer.parseInt(st.nextToken()));
+            int input = Integer.parseInt(st.nextToken());
+
+            if (high)
+            stack.push(input);
+
         }
 
-
+        System.out.println(sb);
     }
 }
