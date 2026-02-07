@@ -1,4 +1,4 @@
-package step01;
+package list;
 
 class Node {
     int data;

@@ -1,4 +1,4 @@
-package step03;
+package queue;
 
 public class MyCircularQueue {
     private int[] queue;

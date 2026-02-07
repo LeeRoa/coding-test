@@ -1,4 +1,4 @@
-package step01;
+package list;
 
 public class MyArrayTest {
 

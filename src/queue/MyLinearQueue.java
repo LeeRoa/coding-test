@@ -1,4 +1,4 @@
-package step03;
+package queue;
 
 public class MyLinearQueue {
     private int[] queue;

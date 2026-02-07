@@ -1,4 +1,4 @@
-package step02;
+package stack;
 
 public class MyArrayStack {
     private int[] stack;
