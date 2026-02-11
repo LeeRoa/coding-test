@@ -7,8 +7,10 @@ import java.util.StringTokenizer;
 public class BaekJoon_2667 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-//        int M = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(br.readLine());
+
+        for (int x = 0; x < N; x++) {
+
+        }
     }
 }
