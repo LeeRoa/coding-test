@@ -41,13 +41,41 @@ public class BaekJoon_2667 {
             // 지도 한줄씩 탐색 후 값 세팅
             for (int y = 0; y < N; y++) {
                 maps[x][y] = row[y] == '1' ? true : false; // row의 값을 하나씩 지도에 세팅한다 0, 1 판별
-                graph.add(new Node(x, y)); // 집이 있는 만큼 생성
+                graph.add(new Node(x, y)); // 집이 있는 만큼 노드 생성
             }
         }
 
-        // 간선 생성
+        // 인접 노드 있는지 탐색 후 간선 생성
         for (int i = 0; i < graph.size(); i++) {
+            Node node = graph.get(i);
+            int x = node.x;
+            int y  = node.y;
 
+            if (x - 1 >= 0) {
+                // 인접한 노드가 있다면 간선 생성
+                if (maps[x - 1][y]) {
+
+                }
+            }
+
+            if (y - 1 >= 0) {
+                // 인접한 노드가 있다면 간선 생성
+                if (maps[x][y - 1]) {
+
+                }
+            }
+
+            if (x + 1 <= N) {
+                if (maps[x + 1][y]) {
+
+                }
+            }
+
+            if (y + 1 <= N) {
+                if (maps[x][y + 1]) {
+
+                }
+            }
         }
     }
 }
