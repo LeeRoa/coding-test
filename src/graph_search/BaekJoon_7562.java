@@ -26,14 +26,15 @@ public class BaekJoon_7562 {
 
             // 현재 위치
             st = new StringTokenizer(br.readLine());
-            nowCol = Integer.parseInt(st.nextToken());
-            nowRow = Integer.parseInt(st.nextToken());
+            nowRow = Integer.parseInt(st.nextToken()); // 0
+            nowCol = Integer.parseInt(st.nextToken()); // 0
 
             // 엔드 포인트
             st = new StringTokenizer(br.readLine());
-            endCol = Integer.parseInt(st.nextToken());
-            endRow = Integer.parseInt(st.nextToken());
+            endRow = Integer.parseInt(st.nextToken()); // 7
+            endCol = Integer.parseInt(st.nextToken()); // 0
 
+//            System.out.println("최종: " + endRow + ", " + endCol);
             bfs(nowCol, nowRow);
         }
     }
@@ -43,14 +44,14 @@ public class BaekJoon_7562 {
         Queue<Integer[]> queue = new ArrayDeque<>();
         visited[col][row] = true;
         queue.offer(new Integer[]{col, row});
-
         while (!queue.isEmpty()) {
+//            check();
             Integer[] now = queue.poll();
             nowCol = now[0];
             nowRow = now[1];
 
-            if (nowCol == endCol && nowRow == endCol) {
-                System.out.println(maps[nowCol][endCol]);
+            if (nowCol == endCol && nowRow == endRow) {
+                System.out.println(maps[nowCol][nowRow]);
                 break;
             }
 
@@ -68,5 +69,13 @@ public class BaekJoon_7562 {
                 }
             }
         }
+    }
+
+    static void check() {
+        System.out.println("---------------------------------------");
+        for (int i = 0; i < I; i++) {
+            System.out.println(Arrays.toString(maps[i]));
+        }
+        System.out.println("---------------------------------------");
     }
 }
