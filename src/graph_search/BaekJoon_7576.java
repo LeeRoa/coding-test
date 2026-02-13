@@ -10,6 +10,8 @@ public class BaekJoon_7576 {
     static int COL, ROW;
     static int[][] box;
     static boolean[][] visited;
+    static int[] dCol = {-1, 1, 0, 0};
+    static int[] dRow = {0, 0, -1, 1};
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -40,7 +42,23 @@ public class BaekJoon_7576 {
         queue.offer(new Integer[]{row, col});
 
         while (!queue.isEmpty()) {
+            Integer[] here = queue.poll();
+            int hereRow = here[0];
+            int hereCol = here[1];
+            // 토마토 상태 확인
+            int status = box[hereRow][hereCol];
 
+            if (status == 1) {
+                // 익음
+                for (int i = 0; i < 4; i++) {
+                    int newRow = hereRow + dRow[i];
+                    int newCol = hereCol + dCol[i];
+                }
+            } else if (status == 0) {
+                // 안익음
+            } else {
+                // 없음
+            }
         }
     }
 }
