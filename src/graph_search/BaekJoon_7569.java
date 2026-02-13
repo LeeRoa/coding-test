@@ -14,7 +14,7 @@ public class BaekJoon_7569 {
 
     static int[] dCol = {0, 0, -1, 1, 0, 0};
     static int[] dRow = {0, 0, 0, 0, -1, 1};
-    static int[] dH = {0, 1, -1};
+    static int[] dH = {1, -1};
 
     static int max = 0;
     static class Box {
@@ -73,14 +73,14 @@ public class BaekJoon_7569 {
 
         // 스타트 지점이 있다면
         if (!startPoint.isEmpty()) {
-            check();
+//            check();
             bfs();
 
-//            if (!check()) {
-//                System.out.println(-1);
-//            } else {
-//                System.out.println(max - 1);
-//            }
+            if (!check()) {
+                System.out.println(-1);
+            } else {
+                System.out.println(max - 1);
+            }
         } else {
             System.out.println(-1);
         }
@@ -97,20 +97,28 @@ public class BaekJoon_7569 {
             check();
             Tomato tomato = queue.poll();
 
+            int h = tomato.height;
+            for (int j = 0; j < dCol.length; j++) {
+                int row = tomato.row + dRow[j];
+                int col = tomato.col + dCol[j];
+
+                if (row >= 0 && row < ROW && col >= 0 && col < COL
+                        && boxs[h].tomatos[row][col].status == 0) {
+                    Tomato targetTomato = boxs[h].tomatos[row][col];
+                    targetTomato.status = tomato.status + 1;
+                    targetTomato.visited = true;
+                    queue.offer(targetTomato);
+                }
+            }
+
             for (int i = 0; i < dH.length; i++) {
-                int h = tomato.height + dH[i];
-
-                for (int j = 0; j < dCol.length; j++) {
-                    int row = tomato.row + dRow[j];
-                    int col = tomato.col + dCol[j];
-
-                    if (row >= 0 && row < ROW && col >= 0 && col < COL && h >= 0 && h < H
-                            && boxs[h].tomatos[row][col].status == 0) {
-                        Tomato targetTomato = boxs[h].tomatos[row][col];
-                        targetTomato.status = tomato.status + 1;
-                        targetTomato.visited = true;
-                        queue.offer(targetTomato);
-                    }
+                int targetH = tomato.height + dH[i];
+                if (targetH >= 0 && targetH < H
+                        && boxs[targetH].tomatos[tomato.row][tomato.col].status == 0) {
+                    Tomato targetTomato = boxs[targetH].tomatos[tomato.row][tomato.col];
+                    targetTomato.status = tomato.status + 1;
+                    targetTomato.visited = true;
+                    queue.offer(targetTomato);
                 }
             }
         }
@@ -120,19 +128,19 @@ public class BaekJoon_7569 {
         int floor = 0;
         for (Box box : boxs) {
             floor++;
-            System.out.println();
-            System.out.println(floor + "층==================================================");
+//            System.out.println();
+//            System.out.println(floor + "층==================================================");
             for (int i = 0; i < ROW; i++) {
                 for (int j = 0; j < COL; j++) {
-//                    if (box.tomatos[i][j].status == 0) {
-//                        return false;
-//                    }
-//                    max = Math.max(box.tomatos[i][j].status, max);
+                    if (box.tomatos[i][j].status == 0) {
+                        return false;
+                    }
+                    max = Math.max(box.tomatos[i][j].status, max);
 
-                    System.out.print(box.tomatos[i][j].status);
-                    System.out.print(", ");
+//                    System.out.print(box.tomatos[i][j].status);
+//                    System.out.print(", ");
                 }
-                System.out.println();
+//                System.out.println();
             }
         }
 
