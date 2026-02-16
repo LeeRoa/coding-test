@@ -20,43 +20,31 @@ public class BaekJoon_1654 {
             list[i] = Integer.parseInt(br.readLine());
         }
 
-        Arrays.sort(list, (s1, s2) -> s2 - s1);
+        Arrays.sort(list);
 
 //        System.out.println(Arrays.toString(list));
 
-        int count = 0;
-        int nanugi = 1;
-        while (count <= N) {
-            count = 0;
-            for (int i = 0; i < list.length; i++) {
-                count = 0;
-                int num = list[i];
-                for (int k = 0; k < nanugi; k++) {
-                    num = num / 2; // 401
-                }
-//                System.out.println("타겟 랜선 길이 : " + num);
-                for (int j = 0; j < list.length; j++) {
-                    count = count + list[j] / num; // 0 + 802/401 (2) -> 2 + 743/401 (1) -> ...
-//                    System.out.println(list[j] + " / " + num + " = " + (list[j] / num));
-//                    System.out.println("현재까지의 count: " + count);
-//                    System.out.println("적용 개수: " + count);
-                    if (count >= N) {
-                        System.out.println(num);
-                        break;
-                    }
-                }
+        long min = 1;
+        long max = list[list.length - 1];
+        ArrayList<Long> answers = new ArrayList<>();
+        while (min <= max) {
+            long count = 0;
+            long mid = (min + max) / 2;
 
-                if (count >= N) {
-//                    System.out.println("도달: " + num);
-                    break;
-                }
+            for (int i = 0; i < list.length; i++) {
+                count = count + list[i] / mid;
             }
+
+//            System.out.println("count : " + count);
 
             if (count >= N) {
-                break;
+                answers.add(mid);
+                min = mid + 1;
+            } else {
+                max = mid - 1;
             }
-
-            nanugi++;
         }
+
+        System.out.println(answers.get(answers.size() - 1));
     }
 }
