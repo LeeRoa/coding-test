@@ -1,4 +1,4 @@
-package graph_search;
+package graph_search.bfs;
 
 import java.io.*;
 import java.io.InputStreamReader;
