@@ -2,73 +2,100 @@ package graph_search;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class BaekJoon_2206 {
+    static class Map {
+        int[][] world;
+        int result;
+
+        Map(int row, int col) {
+            world = new int[row][col];
+            result = 0;
+        }
+    }
+
+    static class Location {
+        int row;
+        int col;
+
+        Location(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }
+
     static int ROW, COL;
-    static int[][] map;
     static boolean[][] visited;
     static int[] dCol = {-1, 1, 0, 0};
     static int[] dRow = {0, 0, -1, 1};
-    static ArrayList<Integer[]> walls = new ArrayList<>();
+    static ArrayList<Location> walls = new ArrayList<>();
+    static ArrayList<Map> maps = new ArrayList<>();
+    static Location startPoint = new Location(0,0);
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         ROW = Integer.parseInt(st.nextToken());
         COL = Integer.parseInt(st.nextToken());
 
-        map = new int[ROW][COL];
-
-        for (int row = 0; row < ROW; row++) {
-            char[] cols = br.readLine().toCharArray();
+        Map map = new Map(ROW, COL);
+        for (int row = 0 ; row < ROW; row++) {
+            char[] rows = br.readLine().toCharArray();
             for (int col = 0; col < COL; col++) {
-                if (cols[col] == '1') {
-                    walls.add(new Integer[] {row, col});
-                    map[row][col] = 1;
-                } else {
-                    map[row][col] = 0;
-                }
+                int num = rows[col] == '1' ? 1 : 0;
+                map.world[row][col] = num;
+
+                if (num == 1)
+                    walls.add(new Location(row, col));
             }
         }
 
-        // 벽을 하나씩 없애는 순회
-        int[] counts = new int[walls.size()];
+        for (int i = 0; i < walls.size(); i++) {
+            Location wall = walls.get(i);
+            map.world[wall.row][wall.col] = 0;
+            maps.add(map);
+            map.world[wall.row][wall.col] = 1;
+        }
+
         for (int i = 0; i < walls.size(); i++) {
             visited = new boolean[ROW][COL];
-            bfs(0, 0);
+            Map map1 = maps.get(i);
+            bfs(map1);
+            map1.result = map1.world[ROW - 1][COL - 1];
+        }
+
+        Collections.sort(maps, (s1, s2) -> s1.result - s2.result);
+
+
+        boolean ok = false;
+        for (int i = 0; i < maps.size(); i++) {
+            if (maps.get(i).result > ROW + COL) {
+                ok = true;
+                break;
+            }
         }
     }
 
-    // 1은 벽
-    // 0이 통로
-    // 한 번 부수는것이 가능
-    static void bfs(int row, int col) {
-        Queue<Integer[]> queue = new ArrayDeque<>();
-        queue.offer(new Integer[]{row, col});
-        visited[row][col] = true;
+    static void bfs(Map map) {
+        Queue<Location> queue = new ArrayDeque<>();
+        queue.offer(startPoint);
+        visited[startPoint.col][startPoint.row] = true;
 
         while (!queue.isEmpty()) {
-            Integer[] hereRowCol = queue.poll();
-            int hereRow = hereRowCol[0];
-            int hereCol = hereRowCol[1];
-            int here = map[hereRow][hereCol];
+            Location here = queue.poll();
 
-            if (hereRow == ROW && hereCol == COL) {
-                break;
-            }
+            for (int i = 0; i < dCol.length; i++) {
+                int targetRow = here.row + dRow[i];
+                int targetCol = here.col + dCol[i];
 
-            for (int i = 0; i < 4; i++) {
-                int targetRow = hereRow + dRow[i];
-                int targetCol = hereCol + dCol[i];
-
-                if (targetRow >= 0 && targetRow < ROW && targetCol >= 0 && targetCol < COL
-                        && map[targetRow][targetCol] == 0) {
-                    queue.offer(new Integer[] {targetRow, targetCol});
+                if (targetRow >= 0 && targetRow < ROW
+                        && targetCol >= 0 && targetCol < COL
+                        && map.world[targetRow][targetCol] == '0'
+                        && !visited[targetRow][targetCol]) {
+                    queue.offer(new Location(targetRow, targetCol));
                     visited[targetRow][targetCol] = true;
-                    map[targetRow][targetCol] = here + 1;
+                    map.world[targetRow][targetCol] = map.world[here.row][here.col] + 1;
                 }
             }
         }
