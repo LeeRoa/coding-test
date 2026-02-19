@@ -12,15 +12,15 @@ public class BaekJoon_10986 {
         int len = N + 1;
         int[] A = new int[len];
         int[] S = new int[len];
-        int[] G = new int[M];
+        long[] G = new long[M];
 
         st = new StringTokenizer(br.readLine());
         for (int i = 1; i <= N; i++) {
             A[i] = Integer.parseInt(st.nextToken());
-            S[i] = S[i - 1] + A[i];
-            G[S[i] % M]++;
+            S[i] = (S[i - 1] + A[i]) % M;
+            G[S[i]]++;
         }
-        int count = G[0];
+        long count = G[0];
         for (int i = 0; i < M; i++) {
             count = count + G[i] * (G[i] - 1) / 2;
         }
