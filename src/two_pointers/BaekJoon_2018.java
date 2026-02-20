@@ -8,24 +8,24 @@ public class BaekJoon_2018 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        int[] nums = new int[N];
-        for (int i = 0; i < N; i++) {
-            nums[i] = i + 1;
-        }
-        System.out.println(Arrays.toString(nums));
 
-        int start = 0;
-        int end = 0;
-        int count = 0;
-        int sum = 0;
-        while (end != N - 1) {
-            if (sum == N) {
-                count++;
+        int start = 1;
+        int end = 1;
+        int count = 1;
+        int sum = 1;
+        while (end != N) {
+//            System.out.println(start + ", " + end + "합계: " + sum);
+            if (sum < N) {
                 end++;
+                sum = sum + end;
             } else if (sum > N) {
+                sum -= start;
                 start++;
             } else {
+//                System.out.println("hit:" + start + ", " + end);
+                count++;
                 end++;
+                sum += end;
             }
         }
         System.out.println(count);
