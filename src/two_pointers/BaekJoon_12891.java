@@ -12,6 +12,12 @@ public class BaekJoon_12891 {
         String dna = br.readLine();
         // [A, C, G, A]
         int[][] A = new int[dna.length()][4];
+        int[] T = new int[4];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < 4; i++) {
+            T[i] = Integer.parseInt(st.nextToken());
+        }
+
         for (int i = 0; i < S; i++) {
             char ch = dna.charAt(i);
             if (i != 0) {
@@ -52,8 +58,26 @@ public class BaekJoon_12891 {
             if (start == 0) {
                 r = A[end];
             } else {
+                r = new int[4];
+                for (int i = 0; i < 4; i++) {
+                    r[i] = A[end][i] - A[start - 1][i];
+                }
             }
+
+            boolean check = true;
+            for (int i = 0; i < 4; i++) {
+                if (T[i] > r[i]) {
+                    check = false;
+                    break;
+                }
+            }
+
+            if (check) count++;
+            start++;
+            end++;
         }
+
+        System.out.println(count);
     }
 
     static void check(int[][] arr) {
