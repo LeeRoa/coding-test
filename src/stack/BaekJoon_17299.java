@@ -1,15 +1,15 @@
 package stack;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.*;
 
-public class BaekJoon_17298 {
-
+public class BaekJoon_17299 {
     static class Node {
         int index;
         int data;
 
-        public Node(int index, int data) {
+        public Node (int index, int data) {
             this.index = index;
             this.data = data;
         }
@@ -23,27 +23,37 @@ public class BaekJoon_17298 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        Deque<Node> stack = new ArrayDeque<>();
-        int[] result = new int[N];
+        int[] A = new int[N];
         StringTokenizer st = new StringTokenizer(br.readLine());
+        Map<Integer, Integer> counts = new HashMap<>();
         for (int i = 0; i < N; i++) {
-            int A = Integer.parseInt(st.nextToken());
-            Node input = new Node(i, A);
-            if (stack.isEmpty()) stack.push(input);
+            A[i] = Integer.parseInt(st.nextToken());
+            counts.put(A[i], counts.get(A[i]) == null ? 1 : counts.get(A[i]) + 1);
+        }
+
+        System.out.println(counts);
+
+        int[] R = new int[N];
+        Deque<Node> stack = new ArrayDeque<>();
+        for (int i = 0; i < N; i++) {
+            int num = A[i];
+            Node node = new Node(i, num);
+            if (stack.isEmpty()) stack.push(node);
             else {
                 while (!stack.isEmpty()) {
 //                    System.out.println(stack);
-                    Node node = stack.peek();
-                    if (A > node.data) {
-                        result[node.index] = A;
+                    Node peek = stack.peek();
+
+                    if (counts.get(peek.data) < counts.get(node.data)) {
+                        R[peek.index] = node.data;
                         stack.pop();
                     } else {
-                        stack.push(input);
+                        stack.push(node);
                         break;
                     }
 
                     if (stack.isEmpty()) {
-                        stack.push(input);
+                        stack.push(node);
                         break;
                     }
                 }
@@ -51,8 +61,9 @@ public class BaekJoon_17298 {
         }
 
         StringBuilder sb = new StringBuilder();
-        for (int num : result) {
-            sb.append(num == 0 ? -1 : num).append(" ");
+
+        for (int result : R) {
+            sb.append(result == 0 ? -1 : result).append(" ");
         }
 
         System.out.println(sb);
